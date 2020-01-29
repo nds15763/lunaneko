@@ -4,11 +4,13 @@ cc.Class({
     properties: {
         feibiao: cc.Node,
         cat:cc.Node,
+        ground:cc.Node,
         // caorenPrefab: cc.Prefab,
         // caorenArea: cc.Node,
         //飞行用背景
         bgPrefab: cc.Prefab,
         bgArea: cc.Node,
+        score:cc.Label,
     },
 
     onLoad() {
@@ -20,9 +22,11 @@ cc.Class({
         //x为屏幕移动速度，需要递减
         this.speedx = -1200
         //最后成绩
-        this.score = 0
+        this.point = 0
         //是否已经投掷
         this.start = 0
+
+        this.fbRigidbody = this.feibiao.getComponent(cc.RigidBody)
 
         this.bgInit()
         this.feibiaoInit()
@@ -30,11 +34,12 @@ cc.Class({
 
     update(dt) {
         if (this.start) {
-
+            this.ground.x += this.speedx * dt
             this.cat.x += this.speedx * dt
             for (let bgNode of this.bgArr) {
                 bgNode.x += this.speedx * dt
                 if (bgNode.x < -cc.winSize.width) {
+                    this.updateScore()
                     bgNode.x = this.getLastPos() + cc.winSize.width
                 }
             }
@@ -42,6 +47,15 @@ cc.Class({
         if (this.feibiao.y < -cc.winSize.height / 2) {
             this.toGround()
         }
+        if (this.feibiao.y > cc.winSize.height / 2) {
+            this.toGround()
+        }
+    },
+
+    updateScore(){
+        this.point += 1
+        console.log('point',this.point)
+        this.score.string = this.point
     },
 
     getLastPos() {
@@ -60,7 +74,6 @@ cc.Class({
 
         //先给一个初始的力，设置重力并让他滚到猫的脚边
         //拖动的时候只记录点，然后设置动画让猫把球踢走或者打走
-        let rigidbody = this.feibiao.getComponent(cc.RigidBody)
 
         this.feibiao.once(cc.Node.EventType.TOUCH_START, this.touchStart, this);
         this.feibiao.on(cc.Node.EventType.TOUCH_MOVE, this.touchMove, this);
@@ -86,11 +99,16 @@ cc.Class({
 
     //飞镖点击事件
     touchStart(event) {
+
         var pos = new cc.Vec2(event.getLocationX(), event.getLocationY());
         //转换为UI坐标
         this.startPos = this.node.convertToNodeSpaceAR(pos);
 
         console.log('startPos', this.startPos)
+        //设置重力
+        cc.director.getPhysicsManager().gravity = cc.v2(0, 0);
+        //取消线速度衰减
+        this.fbRigidbody.linearDamping = 0
     },
 
     //飞镖点击事件
@@ -129,10 +147,8 @@ cc.Class({
             console.log('掉到地面')
         }
 
-
-
-        let rigidbody = this.feibiao.getComponent(cc.RigidBody)
-        rigidbody.applyForceToCenter(cc.v2(0, (this.endPos.y+200)*100));
+        console.log('this.endPos.y+200：',this.endPos.y+200)
+        this.fbRigidbody.applyForceToCenter(cc.v2(0, (this.endPos.y+200)*100));
     },
 
     //碰撞天空和地面
@@ -143,6 +159,10 @@ cc.Class({
     toGround() {
         //碰触地面的动画可以和发射时判断的初速度联合起来做一个动画
         console.log('游戏结束')
+        this.schedule(function() {
+            cc.director.pause();
+        }, 1);
+        
     },
 
     //碰撞假人
