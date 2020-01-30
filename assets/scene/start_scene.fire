@@ -78,7 +78,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 30
+        "__id__": 28
       }
     ],
     "_prefab": null,
@@ -168,7 +168,7 @@
       "array": [
         0,
         0,
-        342.18828767032636,
+        342.3165639935216,
         0,
         0,
         0,
@@ -237,18 +237,15 @@
     "_children": [
       {
         "__id__": 6
-      },
-      {
-        "__id__": 26
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 28
+        "__id__": 26
       },
       {
-        "__id__": 29
+        "__id__": 27
       }
     ],
     "_prefab": null,
@@ -1206,86 +1203,6 @@
     "_originalWidth": 200,
     "_originalHeight": 150,
     "_id": "d2GfG1+HlBp5dJlTLC3hxb"
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "audio",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 5
-    },
-    "_children": [],
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 27
-      }
-    ],
-    "_prefab": null,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
-    },
-    "_trs": {
-      "__type__": "TypedArray",
-      "ctor": "Float64Array",
-      "array": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    "_eulerAngles": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
-    "_id": "aeqq4h/dNNW7onmzqouDya"
-  },
-  {
-    "__type__": "cc.AudioSource",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 26
-    },
-    "_enabled": true,
-    "_clip": {
-      "__uuid__": "7471ce2c-a1c9-45a9-966c-3233e0c71cc6"
-    },
-    "_volume": 1,
-    "_mute": false,
-    "_loop": true,
-    "playOnLoad": true,
-    "preload": true,
-    "_id": "9dCFXLe8ZBxIXv11FPWLzw"
   },
   {
     "__type__": "cc.Sprite",
